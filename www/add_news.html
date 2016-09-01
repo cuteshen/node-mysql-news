@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app=angular.module('app',[]);
+
+        app.controller('add-news', function ($scope, $http) {
+            $scope.toAdd = function () {
+                $http.get('news',{
+                    params:{act:'add',title:$scope.title,href:$scope.href},
+                    responseType:'json'//
+                }).success(function(res){
+                    alert(res.msg);
+                }).error(function (err) {
+                    console.log(err);
+                })
+            }
+        })
+    </script>
+</head>
+<body ng-app="app">
+<div id="box" ng-controller="add-news">
+    <h3>添加新闻页面</h3>
+    title:
+    <input type="text" id="t1" ng-model="title">
+    <br>
+    href:
+    <input type="text" id="t2" ng-model="href">
+    <br>
+    <input type="button" value="添加" id="btn1" ng-click="toAdd()">
+</div>
+</body>
+</html>
